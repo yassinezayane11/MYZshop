@@ -26,8 +26,21 @@ export default function ProductsPage() {
       if (search)   params.search   = search;
       if (size)     params.size     = size;
       if (color)    params.color    = color;
-      const res = await productsApi.getAll(params);
-      setProducts(res.data);
+      const res = await productsApi.getAll();
+
+// نطبع باش نشوف structure
+console.log("API RESPONSE:", res.data);
+
+// نصلحها بشكل مضمون
+if (Array.isArray(res.data)) {
+  setProducts(res.data);
+} else if (Array.isArray(res.data.products)) {
+  setProducts(res.data.products);
+} else if (Array.isArray(res.data.data)) {
+  setProducts(res.data.data);
+} else {
+  setProducts([]); // fallback
+}
     } finally {
       setLoading(false);
     }
