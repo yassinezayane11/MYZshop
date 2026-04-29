@@ -184,8 +184,16 @@ export default function ProductsPage() {
               </div>
             ) : (
               <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
-                {products.map(p => <ProductCard key={p._id} product={p} />)}
-              </div>
+  {Array.isArray(products) && products.length > 0 ? (
+  products.map((p) => (
+    <div key={p._id}>
+      <h2>{p.name}</h2>
+    </div>
+  ))
+) : (
+  <p>No products</p>
+)}
+</div>
             )}
           </div>
         </div>
