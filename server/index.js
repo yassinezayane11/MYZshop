@@ -27,7 +27,9 @@ app.use('/api/colors', require('./routes/colors'));
 app.get('/api/health', (req, res) => res.json({ status: 'ok', message: 'DBACH API running' }));
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/dbach')
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("✅ MongoDB Connected"))
+  .catch(err => console.error("❌ Mongo Error:", err));
   .then(async () => {
     console.log('✅ MongoDB connected');
     await seedData();
